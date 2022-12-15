@@ -282,8 +282,8 @@ ccc (CccEnv {..}) (Ops {..}) cat =
      -- Then we can see further into the error.
      e@(Cast e' co@(coercionRole -> Representational))
        | dtrace "found representational cast" (ppr (exprType e, exprType e', co)) False -> undefined
-       -- | FunTy' a  b  <- exprType e
-       -- | FunTy' a' b' <- exprType e'
+       -- FunTy' a  b  <- exprType e
+       -- FunTy' a' b' <- exprType e'
        | FunCo Representational co1 co2 <- co
        --, Just coA    <- mkCoerceC_maybe cat a a'
        --, Just coB    <- mkCoerceC_maybe cat b' b
@@ -319,7 +319,7 @@ ccc (CccEnv {..}) (Ops {..}) cat =
           return (mkCcc e')
      Trying("top App")
      e@(App u v)
-       -- | dtrace "top App tests" (ppr (exprType v,liftedExpr v, mkConst' cat dom v,mkUncurryMaybe cat (mkCcc u))) False -> undefined
+       --  dtrace "top App tests" (ppr (exprType v,liftedExpr v, mkConst' cat dom v,mkUncurryMaybe cat (mkCcc u))) False -> undefined
        | catClosed, liftedExpr v
        , Just v' <- mkConst' cat dom v
        -- , dtrace "top App  --> " (pprWithType v') True
@@ -544,7 +544,7 @@ ccc (CccEnv {..}) (Ops {..}) cat =
      Case scrut _ _rhsTy [(DataAlt dc, [a,b], rhs)]
          | isBoxedTupleTyCon (dataConTyCon dc) ->
        Doing("lam Case of product")
-       if -- | not (isDeadBinder wild) ->  -- About to remove
+       if --  not (isDeadBinder wild) ->  -- About to remove
           --     pprPanic "lam Case of product live wild binder" (ppr e)
           | not (b `isFreeIn` rhs) ->
               return $ mkCcc $ -- inlineE $  -- already inlines early
@@ -569,7 +569,7 @@ ccc (CccEnv {..}) (Ops {..}) cat =
      --           Trying("lam Case cast")
      Trying("lam Case unfold")
      Case scrut v altsTy alts
-       -- | pprTrace "lam Case unfold" (ppr (scrut,unfoldMaybe' scrut)) False -> undefined
+       --  pprTrace "lam Case unfold" (ppr (scrut,unfoldMaybe' scrut)) False -> undefined
        | Just scrut' <- unfoldMaybe' scrut
        -> Doing("lam Case unfold")
           return $ mkCcc $ Lam x $
@@ -993,13 +993,13 @@ mkOps (CccEnv {..}) guts annotations famEnvs dflags inScope evTy ev cat = Ops {.
    unfoldMaybe' _ = Nothing                                    
    unfoldMaybe :: ReExpr
    -- unfoldMaybe e | dtrace "unfoldMaybe" (ppr (e,collectArgsPred isTyCoDictArg e)) False = undefined
-   unfoldMaybe e -- | unfoldOkay e
-                 --  | (Var v, _) <- collectArgsPred isTyCoDictArg e
+   unfoldMaybe e --   | unfoldOkay e
+                 --   | (Var v, _) <- collectArgsPred isTyCoDictArg e
                  -- -- , dtrace "unfoldMaybe" (text (fqVarName v)) True
                  -- , isNothing (catFun (Var v))
                  --  | True  -- experiment: don't restrict unfolding
                  = onExprHead dflags ({- traceRewrite "inlineMaybe" -} inlineMaybe) e
-                 -- | otherwise = Nothing
+                 --  | otherwise = Nothing
    -- unfoldMaybe = -- traceRewrite "unfoldMaybe" $
    --               onExprHead ({-traceRewrite "inlineMaybe"-} inlineMaybe)
    inlineMaybe :: Id -> Maybe CoreExpr
@@ -1282,7 +1282,7 @@ mkOps (CccEnv {..}) guts annotations famEnvs dflags inScope evTy ev cat = Ops {.
      | isFunCat cat = Just orig
      -- Take care with const, so we don't transform it alone.
      -- TODO: look for a more general suitable test for wrong number of arguments.
-     -- | pprTrace "transCatOp" (ppr (WithType (Var v),WithType <$> rest,length rest, orig)) False = undefined
+     --  | pprTrace "transCatOp" (ppr (WithType (Var v),WithType <$> rest,length rest, orig)) False = undefined
      | v == constV && length rest /= 5 = Nothing
      | varModuleName v == Just catModule
      , uqVarName v `elem`
@@ -2083,7 +2083,7 @@ idOccs penalizeUnderLambda x = go
    go (Type _)                 = 0
    go (Coercion _)             = 0
    go _e@(exprType -> isPredTy' -> True)
-     -- | pprTrace "idOccs predicate" (pprWithType _e) False = undefined
+     --  | pprTrace "idOccs predicate" (pprWithType _e) False = undefined
      = 0
    go (Lit _)                  = 0
    go (Var y)      | y == x    = -- pprTrace "idOccs found" (ppr y) $
