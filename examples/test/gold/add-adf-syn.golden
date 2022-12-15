@@ -1,1 +1,0 @@
-(addC *** coerce . coerce . curry (addC . exr)) . dup

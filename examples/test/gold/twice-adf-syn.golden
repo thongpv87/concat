@@ -1,3 +1,0 @@
-(addC . dup ***
- coerce . coerce . curry (addC . apply) . coerce . coerce . curry (dup . exr)) .
-dup

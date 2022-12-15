@@ -1,9 +1,8 @@
-((exl . id *** coerce . exr . id) . dup) .
-second coerce .
+second (id . repr) .
 apply .
 (curry
  ((exr ***
-   coerce .
+   abst .
    curry mulC . apply . (curry exl . negateC . sinC . exl *** exr) . dup) .
   dup) ***
  cosC) .
