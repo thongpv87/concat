@@ -1,0 +1,46 @@
+cradle:
+  stack:
+    - path: "./classes/src"
+      component: "lib:concat-classes"
+
+    - path: "./examples/src"
+      component: "lib:concat-examples"
+
+    - path: "./examples/test"
+      component: "concat-examples:test:misc-examples"
+
+    - path: "./examples/test"
+      component: "concat-examples:test:misc-trace"
+
+    - path: "./examples/test"
+      component: "concat-examples:test:gold-tests"
+
+    - path: "./graphics/src"
+      component: "lib:concat-graphics"
+
+    - path: "./graphics/test"
+      component: "concat-graphics:test:graphics-examples"
+
+    - path: "./graphics/test"
+      component: "concat-graphics:test:graphics-trace"
+
+    - path: "./hardware/src"
+      component: "lib:concat-hardware"
+
+    - path: "./hardware/test"
+      component: "concat-hardware:test:hardware-examples"
+
+    - path: "./hardware/test"
+      component: "concat-hardware:test:hardware-trace"
+
+    - path: "./inline/src"
+      component: "lib:concat-inline"
+
+    - path: "./known/src"
+      component: "lib:concat-known"
+
+    - path: "./plugin/src"
+      component: "lib:concat-plugin"
+
+    - path: "./satisfy/src"
+      component: "lib:concat-satisfy"
